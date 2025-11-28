@@ -36,6 +36,34 @@ Hata Sayfası: Geçersiz yönlendirmeler için özel bir 404 hata sayfası mevcu
 
 - Tanımsız veya hatalı bir rotaya gidilmeye çalışıldığında kullanıcıya gösterilen ekrandır.
 
+## Desteklenen Rotalar ve Örnek Kullanım
+1. Ana Sayfa (/)
+- Açıklama: Uygulamanın başlangıç ekranı. Ürün listesini gösterir.
+- Argüman: Yok.
+
+2. Ürün Detay Sayfası (/product)
+- Açıklama: Belirli bir ürünün detaylarını göstermek için kullanılır.
+- Argüman: int tipinde bir ürün ID'si.
+
+Örnek Kod:
+```dart
+      // 5 ID'li ürünün detay sayfasına gider.
+      Navigator.pushNamed(context, '/product', arguments:5);
+```
+- Yani rota ``/product/5`` şeklinde oluşur.
+
+3. Bilinmeyen Rotalar (404)
+- Açıklama: Yukarıdaki rotalardan biriyle eşleşmeyen veya `onGenerateRoute` içinde geçersiz argümanlarla çağrılan tüm istekler bu sayfaya yönlendirilir.
+- Örnek Tetikleme Senaryoları:
+```dart
+      // Geçersiz bir rota adı ile çağırmak.
+      Navigator.pushNamed(context, '/notfoundpage');
+
+      // '/product' rotasını yanlış tipte bir argümanla çağırmak.
+      Navigator.pushNamed(context, '/product', arguments: '5');
+      
+```
+
 ## Teknik Detaylar ve Kod Yapısı
 
 - onGenerateRoute: Uygulamanın en kritik yönlendirme mantığını içerir.
