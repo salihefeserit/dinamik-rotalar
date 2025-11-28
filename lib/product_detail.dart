@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:urunkatalog/product_model.dart';
 
 class ProductDetail extends StatelessWidget {
-  final Product urun;
-  const ProductDetail({super.key, required this.urun});
+  final int prodid;
+  const ProductDetail({super.key, required this.prodid});
 
   @override
   Widget build(BuildContext context) {
+    final Product urun = products.firstWhere((urun) => urun.id == prodid);
     return Scaffold(
       appBar: AppBar(title: Text(urun.ad), backgroundColor: Colors.lightGreen,),
       body: Center(

@@ -21,16 +21,10 @@ class UrunApp extends StatelessWidget {
       },
       onGenerateRoute: (settings) {
         final args = settings.arguments;
-
         if (settings.name == '/product') {
-          if (args is Map<String, dynamic>) {
-            final product = Product(
-              id: args['id'] ?? 0,
-              ad: args['ad'] ?? 'Unknown',
-              ucret: args['ucret'] ?? 0.0,
-            );
+          if (args is int) {
             return MaterialPageRoute(
-              builder: (_) => ProductDetail(urun: product),
+              builder: (_) => ProductDetail(prodid: args),
             );
           }
         }
@@ -81,7 +75,7 @@ void _navigateAndDisplaySnackBar(BuildContext context, Product product) async {
   final result = await Navigator.pushNamed(
     context,
     '/product',
-    arguments: {'id': product.id, 'ad': product.ad, 'ucret': product.ucret},
+    arguments: product.id,
   );
 
   if (result != null && context.mounted) {
