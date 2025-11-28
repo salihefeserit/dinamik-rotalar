@@ -17,9 +17,10 @@ class UrunApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
-        '/non-existent-route': (context) => const NotFoundPage(),
+        '/notfoundpage': (context) => const NotFoundPage(),
       },
       onGenerateRoute: (settings) {
+        debugPrint("Gidilen Yol : ${settings.name}/${settings.arguments.toString()}");
         final args = settings.arguments;
         if (settings.name == '/product') {
           if (args is int) {
@@ -31,6 +32,7 @@ class UrunApp extends StatelessWidget {
         return MaterialPageRoute(builder: (context) => NotFoundPage());
       },
       onUnknownRoute: (RouteSettings settings) {
+        debugPrint("Bilinmeyen Yol : ${settings.name}/${settings.arguments.toString()}");
         return MaterialPageRoute(builder: (context) => NotFoundPage());
       },
     );
@@ -62,7 +64,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/non-existent-route');
+          Navigator.pushNamed(context, '/notfoundpage');
         },
         tooltip: 'Test 404',
         child: const Icon(Icons.error_outline),
