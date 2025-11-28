@@ -16,7 +16,7 @@ class UrunApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const _HomePage(),
+        '/': (context) => const HomePage(),
         '/non-existent-route': (context) => const NotFoundPage(),
       },
       onGenerateRoute: (settings) {
@@ -43,8 +43,8 @@ class UrunApp extends StatelessWidget {
   }
 }
 
-class _HomePage extends StatelessWidget {
-  const _HomePage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
