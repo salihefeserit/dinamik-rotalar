@@ -25,7 +25,7 @@ class UrunApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const _HomePage(),
-        '/non-existent-route': (context) => const NotFoundPage()
+        '/non-existent-route': (context) => const NotFoundPage(),
       },
       onGenerateRoute: (settings) {
         final args = settings.arguments;
@@ -34,7 +34,7 @@ class UrunApp extends StatelessWidget {
           if (args is Map<String, dynamic>) {
             final product = Product(
               id: args['id'] ?? 0,
-              ad: args['ad'] ?? 'Bilinmiyor',
+              ad: args['ad'] ?? 'Unknown',
               ucret: args['ucret'] ?? 0.0,
             );
             return MaterialPageRoute(
@@ -42,15 +42,11 @@ class UrunApp extends StatelessWidget {
             );
           }
         }
-        return MaterialPageRoute(
-          builder: (context) => NotFoundPage(),
-        );
+        return MaterialPageRoute(builder: (context) => NotFoundPage());
       },
       onUnknownRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          builder: (context) => NotFoundPage(),
-        );
-      }
+        return MaterialPageRoute(builder: (context) => NotFoundPage());
+      },
     );
   }
 }
@@ -63,7 +59,7 @@ class _HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text(
+          child: const Text(
             "Ürünler",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -71,12 +67,10 @@ class _HomePage extends StatelessWidget {
         backgroundColor: Colors.lightGreen,
       ),
       body: ListView.separated(
-        itemBuilder: (context, index) =>
-            ListTile(
-              title: Text(_products[index].ad),
-              onTap: () =>
-                  _navigateAndDisplaySnackBar(context, _products[index]),
-            ),
+        itemBuilder: (context, index) => ListTile(
+          title: Text(_products[index].ad),
+          onTap: () => _navigateAndDisplaySnackBar(context, _products[index]),
+        ),
         separatorBuilder: (context, index) => const Divider(thickness: 3),
         itemCount: _products.length,
       ),
@@ -95,18 +89,14 @@ void _navigateAndDisplaySnackBar(BuildContext context, Product product) async {
   final result = await Navigator.pushNamed(
     context,
     '/product',
-    arguments: {
-      'id': product.id,
-      'ad': product.ad,
-      'ucret': product.ucret,
-    },
+    arguments: {'id': product.id, 'ad': product.ad, 'ucret': product.ucret},
   );
 
   if (result != null && context.mounted) {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('$result'), behavior: SnackBarBehavior.floating,));
+      ..showSnackBar(
+        SnackBar(content: Text('$result'), behavior: SnackBarBehavior.floating),
+      );
   }
 }
-
-
