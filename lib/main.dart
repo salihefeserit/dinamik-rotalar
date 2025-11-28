@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:urunkatalog/product-detail.dart';
-import 'package:urunkatalog/ProductModel.dart';
-import 'NotFoundPage.dart';
+import 'package:urunkatalog/product_detail.dart';
+import 'package:urunkatalog/product_model.dart';
+import 'not_found_page.dart';
 
 void main() {
   runApp(const UrunApp());

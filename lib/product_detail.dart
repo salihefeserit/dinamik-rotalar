@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urunkatalog/ProductModel.dart';
+import 'package:urunkatalog/product_model.dart';
 
 class ProductDetail extends StatelessWidget {
   final Product urun;
