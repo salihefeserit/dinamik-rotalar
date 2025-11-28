@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:urunkatalog/product-detail.dart';
 import 'package:urunkatalog/ProductModel.dart';
+import 'NotFoundPage.dart';
 
 void main() {
-  runApp(const urunApp());
+  runApp(const UrunApp());
 }
 
-final List<Product> _Products = [
+final List<Product> _products = [
   Product(id: 1, ad: "Tablet", ucret: 10000),
   Product(id: 2, ad: "Telefon", ucret: 20000),
   Product(id: 3, ad: "Laptop", ucret: 40000),
@@ -14,8 +15,8 @@ final List<Product> _Products = [
   Product(id: 5, ad: "Kılıf", ucret: 200),
 ];
 
-class urunApp extends StatelessWidget {
-  const urunApp({super.key});
+class UrunApp extends StatelessWidget {
+  const UrunApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,9 @@ class urunApp extends StatelessWidget {
             );
           }
         }
+        return MaterialPageRoute(
+          builder: (context) => NotFoundPage(),
+        );
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
@@ -69,12 +73,12 @@ class _HomePage extends StatelessWidget {
       body: ListView.separated(
         itemBuilder: (context, index) =>
             ListTile(
-              title: Text(_Products[index].ad),
+              title: Text(_products[index].ad),
               onTap: () =>
-                  _navigateAndDisplaySnackBar(context, _Products[index]),
+                  _navigateAndDisplaySnackBar(context, _products[index]),
             ),
         separatorBuilder: (context, index) => const Divider(thickness: 3),
-        itemCount: _Products.length,
+        itemCount: _products.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -98,7 +102,6 @@ void _navigateAndDisplaySnackBar(BuildContext context, Product product) async {
     },
   );
 
-  // Eğer bir sonuç döndüyse (null değilse), SnackBar göster
   if (result != null && context.mounted) {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
@@ -107,37 +110,3 @@ void _navigateAndDisplaySnackBar(BuildContext context, Product product) async {
 }
 
 
-class NotFoundPage extends StatelessWidget {
-  final String message;
-
-  const NotFoundPage({
-    super.key,
-    this.message = 'Aradığınız sayfa bulunamadı.',
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    debugPrint(message);
-    return Scaffold(
-      appBar: AppBar(title: const Text('404 - Hata'), backgroundColor: Colors.lightGreen,),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, color: Colors.red, size: 60),
-            const SizedBox(height: 20),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Geri Dön'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
