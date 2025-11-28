@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:urunkatalog/product_detail.dart';
 import 'package:urunkatalog/product_model.dart';
-import 'not_found_page.dart';
+import 'package:urunkatalog/not_found_page.dart';
 
 void main() {
   runApp(const UrunApp());
 }
-
-final List<Product> _products = [
-  Product(id: 1, ad: "Tablet", ucret: 10000),
-  Product(id: 2, ad: "Telefon", ucret: 20000),
-  Product(id: 3, ad: "Laptop", ucret: 40000),
-  Product(id: 4, ad: "Şarj Aleti", ucret: 400),
-  Product(id: 5, ad: "Kılıf", ucret: 200),
-];
 
 class UrunApp extends StatelessWidget {
   const UrunApp({super.key});
@@ -68,11 +60,11 @@ class _HomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         itemBuilder: (context, index) => ListTile(
-          title: Text(_products[index].ad),
-          onTap: () => _navigateAndDisplaySnackBar(context, _products[index]),
+          title: Text(products[index].ad),
+          onTap: () => _navigateAndDisplaySnackBar(context, products[index]),
         ),
         separatorBuilder: (context, index) => const Divider(thickness: 3),
-        itemCount: _products.length,
+        itemCount: products.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
