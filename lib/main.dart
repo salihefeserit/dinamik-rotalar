@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urunkatalog/product_detail.dart';
-import 'package:urunkatalog/product_model.dart';
 import 'package:urunkatalog/not_found_page.dart';
+import 'package:urunkatalog/homepage.dart';
 
 void main() {
   runApp(const UrunApp());
@@ -13,6 +13,13 @@ class UrunApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+          brightness: Brightness.dark,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -20,7 +27,9 @@ class UrunApp extends StatelessWidget {
         '/notfoundpage': (context) => const NotFoundPage(),
       },
       onGenerateRoute: (settings) {
-        debugPrint("Gidilen Yol : ${settings.name}/${settings.arguments.toString()}");
+        debugPrint(
+          "Gidilen Yol : ${settings.name}/${settings.arguments.toString()}",
+        );
         final args = settings.arguments;
         if (settings.name == '/product') {
           if (args is int) {
@@ -32,59 +41,12 @@ class UrunApp extends StatelessWidget {
         return MaterialPageRoute(builder: (context) => NotFoundPage());
       },
       onUnknownRoute: (RouteSettings settings) {
-        debugPrint("Bilinmeyen Yol : ${settings.name}/${settings.arguments.toString()}");
+        debugPrint(
+          "Bilinmeyen Yol : ${settings.name}/${settings.arguments.toString()}",
+        );
         return MaterialPageRoute(builder: (context) => NotFoundPage());
       },
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: const Text(
-            "Ürünler",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-        backgroundColor: Colors.lightGreen,
-      ),
-      body: ListView.separated(
-        itemBuilder: (context, index) => ListTile(
-          title: Text(products[index].ad),
-          onTap: () => _navigateAndDisplaySnackBar(context, products[index]),
-        ),
-        separatorBuilder: (context, index) => const Divider(thickness: 3),
-        itemCount: products.length,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/notfoundpage');
-        },
-        tooltip: 'Test 404',
-        child: const Icon(Icons.error_outline),
-      ),
-    );
-  }
-}
-
-void _navigateAndDisplaySnackBar(BuildContext context, Product product) async {
-  final result = await Navigator.pushNamed(
-    context,
-    '/product',
-    arguments: product.id,
-  );
-
-  if (result != null && context.mounted) {
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text('$result'), behavior: SnackBarBehavior.floating),
-      );
-  }
-}

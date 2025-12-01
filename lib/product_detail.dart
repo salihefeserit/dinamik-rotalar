@@ -10,7 +10,7 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final Product urun = products.firstWhere((urun) => urun.id == prodid);
     return Scaffold(
-      appBar: AppBar(title: Text(urun.ad), backgroundColor: Colors.lightGreen),
+      appBar: AppBar(title: Text(urun.ad)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

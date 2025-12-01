@@ -14,7 +14,6 @@ class NotFoundPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('404 - Hata'),
-        backgroundColor: Colors.lightGreen,
       ),
       body: Center(
         child: Column(
